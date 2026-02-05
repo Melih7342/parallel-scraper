@@ -16,7 +16,7 @@ func ScrapePage(client *http.Client, url string) structs.ScrapeResult {
 	// 2. Request
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0")
-	resp, err := client.Get(url)
+	resp, err := client.Do(req)
 	if err != nil {
 		result.Error = fmt.Sprintf("network error: %v", err)
 		return result
