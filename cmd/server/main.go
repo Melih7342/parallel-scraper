@@ -12,7 +12,7 @@ func main() {
 
 	api := r.Group("/api")
 	{
-		api.POST("/scrape/title", scraperHandler.PostScrape)
+		api.POST("/scrape", scraperHandler.PostScrape)
 	}
 
 	err := r.Run(":8080")
