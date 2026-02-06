@@ -1,0 +1,43 @@
+# --- Binary & Executable Files ---
+# Compiled binaries created by 'go build'
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+scraper-api
+# Common output folder for built binaries
+bin/
+
+# --- IDE & Editor Settings ---
+# Visual Studio Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Other editors
+*.swp
+*.swo
+*~
+
+# --- System Files ---
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# --- Environment & Secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Testing & Coverage ---
+# Test binaries and coverage reports
+*.test
+*.out
+coverage.txt
