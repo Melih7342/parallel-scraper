@@ -1,6 +1,6 @@
 package structs
 
 type ScrapeInput struct {
-	URL     []string `json:"url" binding:"required"`
+	URLs    []string `json:"urls" binding:"required"`
 	Workers int      `json:"workers"`
 }
