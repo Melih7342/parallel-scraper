@@ -3,13 +3,12 @@ package scraper
 import (
 	"fmt"
 	"net/http"
-	"strings"
 
 	"github.com/Melih7342/parallel-scraper/internal/structs"
 	"github.com/PuerkitoBio/goquery"
 )
 
-func ScrapePage(client *http.Client, url string) structs.ScrapeResult {
+func ScrapePage(client *http.Client, url string, profile string) structs.ScrapeResult {
 	// 1. Initialize result struct
 	result := structs.ScrapeResult{URL: url}
 
@@ -37,12 +36,23 @@ func ScrapePage(client *http.Client, url string) structs.ScrapeResult {
 		return result
 	}
 
-	// 5. Find the title
-	title := doc.Find("title").Text()
-	if title == "" {
-		title = doc.Find("h1").First().Text()
+	switch profile {
+	case "seo":
+		fillSEOData(doc, &result)
+	case "tech":
+		result.Server = resp.Header.Get("Server")
+		result.Title = doc.Find("title").Text()
+		if result.Title == "" {
+			result.Title = doc.Find("h1").Text()
+		}
+	default:
+		result.Title = doc.Find("h1").Text()
 	}
-
-	result.Title = strings.TrimSpace(title)
 	return result
+}
+
+func fillSEOData(doc *goquery.Document, res *structs.ScrapeResult) {
+	res.Title = doc.Find("title").Text()
+	res.Description, _ = doc.Find("meta[name='description']").Attr("content")
+	res.Keywords, _ = doc.Find("meta[name='keywords']").Attr("content")
 }
