@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/Melih7342/parallel-scraper/internal/engine"
 	"github.com/Melih7342/parallel-scraper/internal/structs"
@@ -26,7 +27,13 @@ func (h *ScraperHandler) PostScrape(c *gin.Context) {
 		input.Workers = 5
 	}
 
+	start := time.Now()
 	results := engine.RunEngine(input.URLs, input.Workers)
+	duration := time.Since(start)
 
-	c.JSON(http.StatusOK, results)
+	c.JSON(200, gin.H{
+		"total_results":  len(results),
+		"execution time": duration,
+		"data":           results,
+	})
 }
