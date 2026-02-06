@@ -8,7 +8,7 @@ import (
 	"github.com/Melih7342/parallel-scraper/internal/structs"
 )
 
-func RunEngine(urls []string, workerCount int) []structs.ScrapeResult {
+func RunEngine(urls []string, workerCount int, profile string) []structs.ScrapeResult {
 	jobs := make(chan string, len(urls))
 	results := make(chan structs.ScrapeResult, len(urls))
 
@@ -19,7 +19,7 @@ func RunEngine(urls []string, workerCount int) []structs.ScrapeResult {
 		wg.Add(1)
 		go func(workerID int) {
 			defer wg.Done()
-			StartWorker(workerID, jobs, results, client)
+			StartWorker(workerID, jobs, results, client, profile)
 		}(w)
 	}
 	for _, url := range urls {

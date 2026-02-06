@@ -36,6 +36,7 @@ func ScrapePage(client *http.Client, url string, profile string) structs.ScrapeR
 		return result
 	}
 
+	// 5. Scrape based on profile
 	switch profile {
 	case "seo":
 		fillSEOData(doc, &result)

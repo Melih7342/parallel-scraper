@@ -28,7 +28,7 @@ func (h *ScraperHandler) PostScrape(c *gin.Context) {
 	}
 
 	start := time.Now()
-	results := engine.RunEngine(input.URLs, input.Workers)
+	results := engine.RunEngine(input.URLs, input.Workers, input.Profile)
 	duration := time.Since(start)
 
 	c.JSON(200, gin.H{
