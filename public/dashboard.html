@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go Scraper Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-indigo-700">🚀 Go-Scraper Engine</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <label class="block mb-2 font-bold">URLs (one per row)</label>
+            <textarea id="urlInput" rows="10" class="w-full p-2 border rounded mb-4" placeholder="https://..."></textarea>
+
+            <label class="block mb-2 font-bold">Profile</label>
+            <select id="profile" class="w-full p-2 border rounded mb-4">
+                <option value="title">Title only</option>
+                <option value="seo">SEO Meta-Data</option>
+                <option value="full">Full Check</option>
+            </select>
+
+            <label class="block mb-2 font-bold">Worker: <span id="workerVal">5</span></label>
+            <input type="range" id="workers" min="1" max="20" value="5" class="w-full mb-6">
+
+            <button onclick="startScraping()" id="btn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">
+                Start Scraping
+            </button>
+        </div>
+
+        <div class="md:col-span-2">
+            <div id="stats" class="hidden flex justify-between bg-white p-4 rounded-lg shadow mb-4 border-l-4 border-indigo-500">
+                <p>Duration: <span id="time" class="font-bold"></span></p>
+                <p>Links: <span id="count" class="font-bold"></span></p>
+            </div>
+            <div id="results" class="space-y-4">
+            </div>
+        </div>
+    </div>
+</div>
