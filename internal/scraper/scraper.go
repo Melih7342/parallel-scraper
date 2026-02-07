@@ -40,12 +40,6 @@ func ScrapePage(client *http.Client, url string, profile string) structs.ScrapeR
 	switch profile {
 	case "seo":
 		fillSEOData(doc, &result)
-	case "tech":
-		result.Server = resp.Header.Get("Server")
-		result.Title = doc.Find("title").Text()
-		if result.Title == "" {
-			result.Title = doc.Find("h1").Text()
-		}
 	default:
 		result.Title = doc.Find("title").Text()
 		if result.Title == "" {
