@@ -2,19 +2,36 @@ async function startScraping() {
     const urls = document.getElementById('urlInput').value.split('\n').filter(u => u.trim() !== "");
     const workers = parseInt(document.getElementById('workers').value);
     const profile = document.getElementById('profile').value;
+    const resultsDiv = document.getElementById('results');
 
-    // UI Reset
-    document.getElementById('results').innerHTML = "Wait for results...";
+    if (urls.length === 0) {
+        alert("Please enter at least one URL!");
+        return;
+    }
+
     document.getElementById('btn').disabled = true;
+    resultsDiv.innerHTML = `
+        <div class="flex flex-col items-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-700 mb-4"></div>
+            <p class="text-indigo-700 font-medium">Scraping in progress...</p>
+        </div>
+    `;
 
-    const response = await fetch('/api/scrape', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ urls, workers, profile })
-    });
+    resultsDiv.classList.remove('justify-center', 'items-center', 'text-center');
 
-    const result = await response.json();
-    renderResults(result);
+    try {
+        const response = await fetch('/api/scrape', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ urls, workers, profile })
+        });
+
+        const result = await response.json();
+        renderResults(result);
+    } catch (error) {
+        resultsDiv.innerHTML = `<p class="text-red-500">Error: Could not reach the server.</p>`;
+        document.getElementById('btn').disabled = false;
+    }
 }
 
 function renderResults(res) {
