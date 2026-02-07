@@ -7,7 +7,7 @@ async function startScraping() {
     document.getElementById('results').innerHTML = "Wait for results...";
     document.getElementById('btn').disabled = true;
 
-    const response = await fetch('http://localhost:8080/api/v1/scrape', {
+    const response = await fetch('/api/scrape', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ urls, workers, profile })

@@ -33,7 +33,7 @@ func (h *ScraperHandler) PostScrape(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"total_results":  len(results),
-		"execution time": duration.String(),
+		"execution_time": duration.String(),
 		"data":           results,
 	})
 }

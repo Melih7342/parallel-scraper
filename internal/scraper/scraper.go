@@ -47,7 +47,10 @@ func ScrapePage(client *http.Client, url string, profile string) structs.ScrapeR
 			result.Title = doc.Find("h1").Text()
 		}
 	default:
-		result.Title = doc.Find("h1").Text()
+		result.Title = doc.Find("title").Text()
+		if result.Title == "" {
+			result.Title = doc.Find("h1").Text()
+		}
 	}
 	return result
 }

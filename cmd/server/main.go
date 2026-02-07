@@ -8,8 +8,8 @@ import (
 func main() {
 	r := gin.Default()
 
-	r.StaticFile("/", "../public/dashboard.html")
-	r.Static("/static", "../public/static")
+	r.StaticFile("/", "./public/dashboard.html")
+	r.Static("/static", "./public/static")
 
 	scraperHandler := handler.NewScraperHandler()
 

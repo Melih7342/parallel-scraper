@@ -7,7 +7,7 @@
 </head>
 <body class="bg-gray-100 p-8">
 <div class="max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-8 text-indigo-700">🚀 Go-Scraper Engine</h1>
+    <h1 class="text-3xl font-bold mb-8 text-indigo-700">Go-Scraper Engine</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-white p-6 rounded-lg shadow-md">
@@ -18,7 +18,7 @@
             <select id="profile" class="w-full p-2 border rounded mb-4">
                 <option value="title">Title only</option>
                 <option value="seo">SEO Meta-Data</option>
-                <option value="full">Full Check</option>
+                <option value="tech">Server type and title</option>
             </select>
 
             <label class="block mb-2 font-bold">Worker: <span id="workerVal">5</span></label>
@@ -34,11 +34,16 @@
                 <p>Duration: <span id="time" class="font-bold"></span></p>
                 <p>Links: <span id="count" class="font-bold"></span></p>
             </div>
-            <div id="results" class="space-y-4">
+            <div id="results" class="space-y-4 min-h-[500px] bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center p-8 transition-all">
+                <div id="placeholder-content">
+                    <div class="text-6xl mb-4">🕸️</div>
+                    <h2 class="text-xl font-semibold text-gray-500">Your scraped results will appear here!</h2>
+                    <p class="text-gray-400 mt-2">Enter some URLs on the left and start the engine.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script src="dashboard.js"></script>
+<script src="static/dashboard.js"></script>
 </body>
 </html>
