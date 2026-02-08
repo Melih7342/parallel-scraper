@@ -44,13 +44,52 @@ function renderResults(res) {
     resultsDiv.innerHTML = "";
 
     res.data.forEach(item => {
+        // 1. Preparation of logic for dead links section
+        let deadLinksSection = "";
+
+        if (item.dead_links && item.dead_links.length > 0) {
+            deadLinksSection = `
+                <div class="mt-4 pt-4 border-t border-red-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="flex items-center text-red-600 font-bold text-sm">
+                            <span class="mr-2">⚠️</span> ${item.dead_links_count} Dead Links found
+                        </span>
+                    </div>
+                    <div class="bg-red-50 rounded p-2 border border-red-100">
+                        <ul class="text-xs font-mono text-red-500 space-y-1 max-h-32 overflow-y-auto custom-scrollbar">
+                            ${item.dead_links.map(link => `<li class="break-all hover:bg-red-100 p-1 rounded transition-colors">• ${link}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        } else if (item.dead_links_count === 0 && !item.error) {
+            deadLinksSection = `
+                <div class="mt-2 text-xs text-green-600 font-medium">
+                    ✅ All links are healthy
+                </div>
+            `;
+        }
+
+        // 2. Create Card
         const card = document.createElement('div');
-        card.className = `p-4 rounded-lg shadow bg-white border-l-4 ${item.error ? 'border-red-500' : 'border-green-500'}`;
+        card.className = `p-5 rounded-lg shadow-sm bg-white border-l-4 transition-all hover:shadow-md ${item.error ? 'border-red-500' : 'border-green-500'}`;
+
         card.innerHTML = `
-                    <h3 class="font-bold text-sm text-gray-500">${item.url}</h3>
-                    <p class="text-lg">${item.title || '<span class="text-red-400">Error: ' + item.error + '</span>'}</p>
-                    ${item.description ? `<p class="text-sm text-gray-600 mt-2">${item.description}</p>` : ''}
-                `;
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-xs text-gray-400 truncate max-w-[80%]">${item.url}</h3>
+                ${item.dead_links_count > 0 ? `<span class="bg-red-100 text-red-700 text-[10px] px-2 py-1 rounded-full font-black">DEAD: ${item.dead_links_count}</span>` : ''}
+            </div>
+            
+            <p class="text-lg font-semibold text-gray-800 leading-tight">
+                ${item.title || (item.error ? `<span class="text-red-500 italic">Failed to load</span>` : `<span class="text-gray-400 italic font-normal">No title found</span>`)}
+            </p>
+            
+            ${item.description ? `<p class="text-sm text-gray-600 mt-2 line-clamp-2">${item.description}</p>` : ''}
+            
+            ${item.error ? `<p class="text-xs bg-red-50 text-red-600 p-2 mt-3 rounded border border-red-100 font-mono">${item.error}</p>` : ''}
+            
+            ${deadLinksSection}
+        `;
         resultsDiv.appendChild(card);
     });
 }
