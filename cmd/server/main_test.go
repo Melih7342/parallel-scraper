@@ -98,4 +98,24 @@ func TestScrapeIntegration(t *testing.T) {
 			t.Errorf("Expected an error message for URL 'hallo', but got none")
 		}
 	})
+
+	// Case 2: Dead Links Profile
+	t.Run("SEO Data", func(t *testing.T) {
+		body := map[string]interface{}{
+			"urls":    []string{"https://google.com"},
+			"workers": 1,
+			"profile": "seo",
+		}
+		jsonBody, _ := json.Marshal(body)
+
+		req, _ := http.NewRequest("POST", "/api/scrape", bytes.NewBuffer(jsonBody))
+		req.Header.Set("Content-Type", "application/json")
+
+		w := httptest.NewRecorder()
+		router.ServeHTTP(w, req)
+
+		if w.Code != http.StatusOK {
+			t.Errorf("Expected status 200, got %d", w.Code)
+		}
+	})
 }
