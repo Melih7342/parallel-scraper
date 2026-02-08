@@ -99,7 +99,7 @@ func TestScrapeIntegration(t *testing.T) {
 		}
 	})
 
-	// Case 2: Dead Links Profile
+	// Case 4: Dead Links Profile
 	t.Run("SEO Data", func(t *testing.T) {
 		body := map[string]interface{}{
 			"urls":    []string{"https://google.com"},
