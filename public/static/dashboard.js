@@ -27,6 +27,7 @@ async function startScraping() {
         });
 
         const result = await response.json();
+        console.log("Full Backend Response:", result);
         renderResults(result);
     } catch (error) {
         resultsDiv.innerHTML = `<p class="text-red-500">Error: Could not reach the server.</p>`;
@@ -39,6 +40,7 @@ function renderResults(res) {
     document.getElementById('stats').classList.remove('hidden');
     document.getElementById('time').innerText = res.execution_time;
     document.getElementById('count').innerText = res.total_results;
+    const profile = document.getElementById('profile').value;
 
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = "";
@@ -62,13 +64,14 @@ function renderResults(res) {
                     </div>
                 </div>
             `;
-        } else if (item.dead_links_count === 0 && !item.error) {
+        } else if (profile === "dead-links" && item.dead_links_count === 0) {
             deadLinksSection = `
-                <div class="mt-2 text-xs text-green-600 font-medium">
-                    ✅ All links are healthy
-                </div>
-            `;
-        }
+        <div class="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs text-green-600">
+            <span class="mr-2">✅</span> 
+            <span>Checked ${item.total_links_found} links. All are healthy!</span>
+        </div>
+    `;
+    }
 
         // 2. Create Card
         const card = document.createElement('div');

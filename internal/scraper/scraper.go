@@ -64,6 +64,7 @@ func extractTitle(doc *goquery.Document, res *structs.ScrapeResult) {
 }
 
 func extractDeadLinks(doc *goquery.Document, res *structs.ScrapeResult, client *http.Client, baseURL string) {
+	fmt.Printf("--- Checking links for: %s ---\n", baseURL)
 	base, _ := url.Parse(baseURL)
 
 	doc.Find("a").Each(func(i int, s *goquery.Selection) {
@@ -78,6 +79,7 @@ func extractDeadLinks(doc *goquery.Document, res *structs.ScrapeResult, client *
 		}
 		absoluteURL := base.ResolveReference(u).String()
 
+		fmt.Printf("Found link: %s\n", href)
 		resp, err := client.Head(absoluteURL)
 		if err != nil || resp.StatusCode >= 400 {
 			res.DeadLinks = append(res.DeadLinks, absoluteURL)
@@ -85,6 +87,7 @@ func extractDeadLinks(doc *goquery.Document, res *structs.ScrapeResult, client *
 			return
 		}
 		resp.Body.Close()
+		fmt.Print("dead links function finished")
 	})
 }
 
