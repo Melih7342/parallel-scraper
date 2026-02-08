@@ -64,7 +64,7 @@ function renderResults(res) {
                     </div>
                 </div>
             `;
-        } else if (profile === "dead-links" && item.dead_links_count === 0) {
+        } else if (profile === "dead-links" && item.dead_links_count === 0 && !item.error) {
             deadLinksSection = `
         <div class="mt-4 pt-3 border-t border-gray-100 flex items-center text-xs text-green-600">
             <span class="mr-2">✅</span> 
