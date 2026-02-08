@@ -95,7 +95,7 @@ func TestScrapeIntegration(t *testing.T) {
 		firstResult := data[0].(map[string]interface{})
 
 		if firstResult["error"] == "" {
-			t.Errorf("Expected an error message for URL 'hallo', but got none")
+			t.Errorf("Expected an error message for URL 'hello', but got none")
 		}
 	})
 
