@@ -30,7 +30,7 @@ A high-performance, parallel web scraping platform built with **Go** and **Gin**
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/Melih7342/parallel-scraper.git](https://github.com/Melih7342/parallel-scraper.git)
+   git clone https://github.com/Melih7342/parallel-scraper.git
    cd parallel-scraper
 
 2. Install dependencies:
